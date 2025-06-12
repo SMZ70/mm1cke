@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "mm1cke"
 description = "cke solver for mm1 queues"
 readme = "README.rst"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -43,7 +43,7 @@ keep-runtime-typing = true
 
 [tool.ruff]
 line-length = 120
-target-version = 'py311'
+target-version = 'py310'
 
 [tool.ruff.lint]
 extend-select = [
