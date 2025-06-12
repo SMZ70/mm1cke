@@ -44,7 +44,8 @@ class Epoch(BaseModel):
                 f"{self.__class__.__qualname__}::{self.json()}".encode(
                     "utf-8", errors="ignore"
                 )
-            ).digest()
+            ).digest(),
+            byteorder="big"
         )
 
 
