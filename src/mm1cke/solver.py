@@ -36,6 +36,7 @@ def rhs_transient(t, p, lamT, muT, ls_max):
 
 
 def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
+    log.debug(f"Solve transient. Case: {case_config}")
     ls_max = case_config.ls_max
     time_step = case_config.time_step
 
@@ -44,7 +45,12 @@ def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
     pT = np.zeros(ls_max + 1)
 
     if case_config.L_0 is not None:
-        pT[case_config.L_0] = 1
+        try:
+            pT[case_config.L_0] = 1
+        except Exception as e:
+            log.error(f"Could not set p to 1: {case_config.L_0=}")
+            log.exception(e)
+            raise e
     elif case_config.p0 is not None:
         pT = case_config.p0
 

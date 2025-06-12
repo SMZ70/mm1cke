@@ -1,3 +1,5 @@
+from hashlib import sha512
+
 import numpy as np
 from pydantic import BaseModel, Field, model_validator
 
@@ -20,18 +22,30 @@ class Epoch(BaseModel):
             raise ValueError(
                 f"Len of p0 ({len(self.p0)}) does not match ls_max ({self.ls_max})"
             )
-        if self.L_0 is not None and self.L_0 != int(self.L_0):
-            self.p0 = np.zeros(self.ls_max + 1)
-            low = int(np.floor(self.L_0))
-            high = low + 1
-            if high < len(self.p0):
-                self.p0[low] = high - self.L_0
-                self.p0[high] = self.L_0 - low
-                self.L_0 = None
+        if self.L_0 is not None:
+            if self.L_0 != int(self.L_0):
+                self.p0 = [0] * (self.ls_max + 1)
+                low = int(np.floor(self.L_0))
+                high = low + 1
+                if high < len(self.p0):
+                    self.p0[low] = high - self.L_0
+                    self.p0[high] = self.L_0 - low
+                    self.L_0 = None
+                else:
+                    raise ValueError(f"lsmax={self.ls_max} is too low.")
             else:
-                raise ValueError(f"lsmax={self.ls_max} is too low.")
+                self.L_0 = int(self.L_0)
 
         return self
+
+    def __hash__(self):
+        return int.from_bytes(
+            sha512(
+                f"{self.__class__.__qualname__}::{self.json()}".encode(
+                    "utf-8", errors="ignore"
+                )
+            ).digest()
+        )
 
 
 class TimeDependentCase(BaseModel):
