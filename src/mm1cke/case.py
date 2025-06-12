@@ -1,8 +1,9 @@
+import numpy as np
 from pydantic import BaseModel, Field, model_validator
 
 
 class Epoch(BaseModel):
-    L_0: int | None = None
+    L_0: int | float | None = None
     p0: list[float] | None = Field(repr=False, default=None)
     arrival_rate: float
     service_rate: float
@@ -19,6 +20,17 @@ class Epoch(BaseModel):
             raise ValueError(
                 f"Len of p0 ({len(self.p0)}) does not match ls_max ({self.ls_max})"
             )
+        if self.L_0 is not None and self.L_0 != int(self.L_0):
+            self.p0 = np.zeros(self.ls_max + 1)
+            low = int(np.floor(self.L_0))
+            high = low + 1
+            if high < len(self.p0):
+                self.p0[low] = high - self.L_0
+                self.p0[high] = self.L_0 - low
+                self.L_0 = None
+            else:
+                raise ValueError(f"lsmax={self.ls_max} is too low.")
+
         return self
 
 

@@ -45,12 +45,14 @@ def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
 
     if case_config.L_0 is not None:
         pT[case_config.L_0] = 1
+    elif case_config.p0 is not None:
+        pT = case_config.p0
+
+    if case_config.off_set == 0:
         rows = [
             dict(t=case_config.off_set, l_s=l_s, p=p)
             for l_s, p in zip(np.arange(0, ls_max + 1), pT)
         ]
-    elif case_config.p0 is not None:
-        pT = case_config.p0
 
     t = 0.0
     while True:
