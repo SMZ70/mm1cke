@@ -21,7 +21,7 @@ dependencies = [
   "seaborn>=0.13",
   "pydantic>=2.11"
 ]
-authors = [{ name = "Mohammad Zenouzzadeh", email = "zenouzzadeh@gmail.com" }]
+authors = [{ name = "Mohammad Zenouzzadeh", email = "s.mohammad.znz@gmail.com" }]
 dynamic = ["version"]
 
 [project.urls]
@@ -43,7 +43,7 @@ keep-runtime-typing = true
 
 [tool.ruff]
 line-length = 120
-target-version = 'py38'
+target-version = 'py311'
 
 [tool.ruff.lint]
 extend-select = [

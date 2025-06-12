@@ -1,7 +1,11 @@
+import logging
+
 import polars as pl
 from rich.console import Console
 
 console = Console()
+
+log = logging.getLogger(__name__)
 
 
 def calculate_performance_measures(probs_df: pl.DataFrame):
