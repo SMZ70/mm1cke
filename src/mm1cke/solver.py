@@ -99,7 +99,11 @@ def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
             )
             break
         t += time_step
-    return pl.DataFrame(rows) if return_df else rows, pT
+
+    if return_df:
+        return pl.DataFrame(rows)
+    else:
+        return rows, pT
 
 
 def solve_time_dependent(td_case: TimeDependentCase):
