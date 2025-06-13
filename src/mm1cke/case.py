@@ -45,7 +45,7 @@ class Epoch(BaseModel):
                     "utf-8", errors="ignore"
                 )
             ).digest(),
-            byteorder="big"
+            byteorder="big",
         )
 
 

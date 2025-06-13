@@ -19,7 +19,8 @@ dependencies = [
   "rich>=14",
   "scipy>=1.15",
   "seaborn>=0.13",
-  "pydantic>=2.11"
+  "pydantic>=2.11",
+  "pyarrow>=20.0.0",
 ]
 authors = [{ name = "Mohammad Zenouzzadeh", email = "s.mohammad.znz@gmail.com" }]
 dynamic = ["version"]
@@ -35,7 +36,8 @@ version_file = "src/mm1cke/_version.py"
 dev = [
   "pytest",
   "ruff",
-  "mypy"
+  "mypy",
+  "xlsxwriter"
 ]
 
 [tool.ruff.lint.pyupgrade]
