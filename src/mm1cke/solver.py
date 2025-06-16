@@ -35,7 +35,9 @@ def rhs_transient(t, p, lamT, muT, ls_max):
     return pdot
 
 
-def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
+def solve_transient(
+    case_config: Epoch, return_df=True, convergence_atol=1e-8
+) -> pl.DataFrame:
     log.debug(f"Solve transient. Case: {case_config}")
     ls_max = case_config.ls_max
     time_step = case_config.time_step
@@ -94,7 +96,7 @@ def solve_transient(case_config: Epoch, return_df=True) -> pl.DataFrame:
         if (
             t > 0
             and case_config.duration is None
-            and np.allclose(last_pT, pT, atol=1e-8)
+            and np.allclose(last_pT, pT, atol=convergence_atol)
         ):
             log.debug(f"Converged {t=}. Terminating main loop.")
             break
