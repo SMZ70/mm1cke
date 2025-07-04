@@ -51,7 +51,7 @@ dev = [
 keep-runtime-typing = true
 
 [tool.ruff]
-line-length = 120
+line-length = 78
 target-version = 'py310'
 
 [tool.ruff.lint]
