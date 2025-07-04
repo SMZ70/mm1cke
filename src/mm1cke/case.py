@@ -1,3 +1,4 @@
+import uuid
 from hashlib import sha512
 
 import numpy as np
@@ -56,6 +57,7 @@ class TimeDependentCase(BaseModel):
     service_rates: list[float]
     ls_max: int
     time_step: float
+    case_id: str | None = None
 
     @model_validator(mode="after")
     def validate_lengths(self):
@@ -65,7 +67,8 @@ class TimeDependentCase(BaseModel):
             raise ValueError(
                 f"Len of arrival rates {n_arr} != len of service rates {n_srv}"
             )
-
+        if self.case_id is None:
+            self.case_id = uuid.uuid4()
         return self
 
     @property

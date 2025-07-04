@@ -93,6 +93,7 @@ def solve_transient(
             for l_s, p in zip(np.arange(0, ls_max + 1), pT)
         ]
         rows.extend(new_rows)
+
         if (
             t > 0
             and case_config.duration is None
