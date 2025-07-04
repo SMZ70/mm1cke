@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, model_validator
 
 class Epoch(BaseModel):
     L_0: int | float | None = None
-    p0: list[float] | None = Field(repr=False, default=None)
+    p0: list[float] | None = Field(repr=True, default=None)
     arrival_rate: float
     service_rate: float
     duration: float | None = None
@@ -42,7 +42,7 @@ class Epoch(BaseModel):
     def __hash__(self):
         return int.from_bytes(
             sha512(
-                f"{self.__class__.__qualname__}::{self.json()}".encode(
+                f"{self.__class__.__qualname__}::{self.model_dump_json()}".encode(
                     "utf-8", errors="ignore"
                 )
             ).digest(),
